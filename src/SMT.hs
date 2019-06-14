@@ -80,7 +80,7 @@ symToSMT m (SAny i) = do
   case M.lookup i m of
     Just val -> return val
     Nothing -> error "Missing symbolic variable."
-    
+
 wordToSVal :: Word32 -> S.SVal
 wordToSVal w = S.svInteger (S.KBounded False 32) (toInteger w)
 
@@ -88,10 +88,10 @@ sValToSBool :: S.SVal -> S.SVal
 sValToSBool w = w `S.svNotEqual` (wordToSVal 0)
 
 sValToSWord :: S.SVal -> S.SVal
-sValToSWord w = S.svIte w (wordToSVal 1) (wordToSVal 0) 
+sValToSWord w = S.svIte w (wordToSVal 1) (wordToSVal 0)
 
 renderSMTResult :: S.SMTResult -> String
-renderSMTResult (S.Unsatisfiable _) = "Unsatisfiable"
+renderSMTResult (S.Unsatisfiable _ _) = "Unsatisfiable"
 renderSMTResult s@(S.Satisfiable _ _) =
   let dict = M.mapKeys fromList $ S.getModelDictionary s
   in
@@ -104,7 +104,7 @@ renderSolvedState (SolvedState (pc,_,_,st,cs) c) =
   "Stack: " <> show (renderSym <$> st) <> "\n" <>
   "Path Constraints: " <> show (renderSym (foldr SAnd (SCon 1) cs)) <> "\n" <>
   "Solved Values: " <> renderSMTResult c
-                    
+
 renderDict :: (Show v) => M.Map String v -> String
 renderDict m =
   foldr toStr "" (M.toList m)

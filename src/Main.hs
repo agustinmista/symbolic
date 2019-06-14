@@ -15,7 +15,8 @@ main :: IO ()
 main = do
   args <- getArgs
   let trace = elem "-t" args
-  let prog = listToProgram addInputsPrintOver15
+  -- let prog = listToProgram addInputsPrintOver15
+  let prog = listToProgram addInputs
   putStrLn $ show prog
   stack <- return [] -- run trace prog (0, M.empty, [])
   putStrLn $ show $ wordToSignedInt <$> stack
@@ -23,6 +24,3 @@ main = do
   putStrLn $ fromString $ T.drawTree $ fmap (toList . show . \(pc,_,_,st,cs) -> (pc, renderSym <$> st, renderSym <$> cs)) traces
   solvedTraces <- solveSym traces
   putStrLn $ fromString $ T.drawTree $ fmap (toList . renderSolvedState) solvedTraces
-
-
-
