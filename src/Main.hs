@@ -21,6 +21,7 @@ main = do
   stack <- return [] -- run trace prog (0, M.empty, [])
   putStrLn $ show $ wordToSignedInt <$> stack
   let traces = symRun 50 prog defaultSymState
-  putStrLn $ fromString $ T.drawTree $ fmap (toList . show . \(pc,_,_,st,cs) -> (pc, renderSym <$> st, renderSym <$> cs)) traces
+  putStrLn $ fromString $ T.drawTree
+    $ fmap (toList . show . \(pc,_,_,st,cs) -> (pc, show st, show cs)) traces
   solvedTraces <- solveSym traces
   putStrLn $ fromString $ T.drawTree $ fmap (toList . renderSolvedState) solvedTraces

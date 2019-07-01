@@ -33,7 +33,10 @@ type Prog = Array Instr
 type Mem = M.Map Word32 Word32
 
 -- Values which are faceted
-data Fac a = Fac [a] | Raw a
+data Fac a =
+    Fac [a]
+  | Raw a
+  deriving Show
 
 -- | State: (program counter, memory, stack)
 type State = (Int, Mem, [Word32])

@@ -101,8 +101,10 @@ renderSMTResult _ = "Error"
 renderSolvedState :: SolvedState -> String
 renderSolvedState (SolvedState (pc,_,_,st,cs) c) =
   "PC: " <> show pc <> "\n" <>
-  "Stack: " <> show (renderSym <$> st) <> "\n" <>
-  "Path Constraints: " <> show (renderSym (foldr SAnd (SCon 1) cs)) <> "\n" <>
+  "Stack: " <> show st <> "\n" <>
+  -- "Stack: " <> show (renderSym <$> st) <> "\n" <>
+  "Path Constraints: " <> show (foldr SAnd (SCon 1) cs) <> "\n" <>
+  --"Path Constraints: " <> show (renderSym (foldr SAnd (SCon 1) cs)) <> "\n" <>
   "Solved Values: " <> renderSMTResult c
 
 renderDict :: (Show v) => M.Map String v -> String
