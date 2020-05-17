@@ -1,8 +1,6 @@
 module Types where
 
--- import Foundation
-
-import Data.Word
+import Foundation
 
 import qualified Data.Map.Strict as M
 import qualified Data.Tree as T
